@@ -9,5 +9,8 @@
   "bin": {
     "robots": "./bin/robots"
   },
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "mocha": "^3.2.0"
+  }
 }
