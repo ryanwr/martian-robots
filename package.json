@@ -1,0 +1,12 @@
+{
+  "name": "martian-robots",
+  "version": "0.0.1",
+  "scripts": {
+    "debug": "node bin/robots",
+    "test": "mocha test/*.js"
+  },
+  "bin": {
+    "robots": "./bin/robots"
+  },
+  "private": true
+}
