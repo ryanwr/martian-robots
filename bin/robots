@@ -3,3 +3,19 @@
 process.argv.forEach(function (val, index, array) {
   console.log(val);
 });
+
+const Simulation = require('../').Simulation;
+const Robot = require('../').Robot;
+
+let simulation = new Simulation(5, 3);
+simulation.addRobot(new Robot(1, 1, 'E', 'RFRFRFRF'));
+simulation.addRobot(new Robot(3, 2, 'N', 'FRRFLLFFRRFLL'));
+simulation.addRobot(new Robot(0, 3, 'W', 'LLFFFLFLFL'));
+
+simulation.run();
+
+let robots = simulation.getRobots();
+
+for(robot in robots) {
+  console.log(robots[robot].toString());
+}
