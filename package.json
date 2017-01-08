@@ -1,6 +1,7 @@
 {
   "name": "martian-robots",
   "version": "0.0.1",
+  "main": "lib/main.js",
   "scripts": {
     "debug": "node bin/robots",
     "test": "mocha test/*.js"
