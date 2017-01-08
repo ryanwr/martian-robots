@@ -1,21 +1,48 @@
 #!/usr/bin/env node
 
-process.argv.forEach(function (val, index, array) {
-  console.log(val);
-});
-
 const Simulation = require('../').Simulation;
 const Robot = require('../').Robot;
+const readline = require('readline');
 
-let simulation = new Simulation(5, 3);
-simulation.addRobot(new Robot(1, 1, 'E', 'RFRFRFRF'));
-simulation.addRobot(new Robot(3, 2, 'N', 'FRRFLLFFRRFLL'));
-simulation.addRobot(new Robot(0, 3, 'W', 'LLFFFLFLFL'));
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
 
-simulation.run();
+let simulation;
+let isFirst = true;
+let input = "";
+let emptyCount = 0;
+rl.on('line', function (line) {
+  if(isFirst) {
+    // If first line
+    if(line.trim() == "") return; // ignore empty
+    // Create simulation
+    let parts = line.trim().split(/\s+/);
+    simulation = new Simulation(parseInt(parts[0]), parseInt(parts[1]));
+    isFirst = false;
+    return;
+  }
 
-let robots = simulation.getRobots();
+  if(line.trim() == "") {
+    emptyCount++;
+    if(emptyCount == 2) {
+      simulation.run();
+      let robots = simulation.getRobots();
 
-for(robot in robots) {
-  console.log(robots[robot].toString());
-}
+      for(robot in robots) {
+        console.log(robots[robot].toString());
+      }
+      process.exit();
+      return;
+    }
+
+    // Parse robot
+    let parts = input.trim().split(/\s+/);
+    simulation.addRobot(new Robot(parseInt(parts[0]), parseInt(parts[1]), parts[2], parts[3]));
+    input = "";
+  } else {
+    emptyCount = 0;
+    input += " " + line;
+  }
+});
